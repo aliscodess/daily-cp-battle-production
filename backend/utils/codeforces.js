@@ -26,12 +26,13 @@ exports.getRandomProblem = async (difficulty = 'any', excludeIds = []) => {
   if (data.status !== 'OK') throw new Error('Codeforces API error');
 
   const problems = data.result.problems.filter(
-    (p) =>
-      p.rating >= min &&
-      p.rating <= max &&
-      p.type === 'PROGRAMMING' &&
-      !excludeIds.includes(`${p.contestId}${p.index}`)
-  );
+  (p) =>
+    p.contestId >= 1500 &&   // newer contests
+    p.rating >= min &&
+    p.rating <= max &&
+    p.type === 'PROGRAMMING' &&
+    !excludeIds.includes(`${p.contestId}${p.index}`)
+);
 
   if (!problems.length) throw new Error('No suitable problems found');
 
