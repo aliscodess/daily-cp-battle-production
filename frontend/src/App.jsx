@@ -22,7 +22,6 @@ const PageLoader = () => (
     <Spinner size="lg" />
   </div>
 );
-
 function App() {
   return (
     <BrowserRouter>
