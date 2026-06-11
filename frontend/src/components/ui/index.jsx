@@ -23,31 +23,37 @@ export const Button = ({
 // ── Input ─────────────────────────────────────────────────────────────────────
 export const Input = ({ label, error, className = '', ...props }) => (
   <div className="flex flex-col gap-1.5">
-    {label && <label className="text-sm font-medium text-gray-300">{label}</label>}
-    <input className={`input ${error ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' : ''} ${className}`} {...props} />
-    {error && <p className="text-xs text-red-400">{error}</p>}
+    {label && <label className="text-sm font-medium text-ink-secondary">{label}</label>}
+    <input
+      className={`input ${error ? 'border-rose focus:border-rose focus:ring-rose/20' : ''} ${className}`}
+      {...props}
+    />
+    {error && <p className="text-xs text-rose">{error}</p>}
   </div>
 );
 
 // ── Badge ─────────────────────────────────────────────────────────────────────
 const badgeVariants = {
-  default: 'bg-white/10 text-gray-300',
-  brand: 'bg-brand-600/20 text-brand-300 border border-brand-500/30',
-  green: 'bg-green-500/15 text-green-400 border border-green-500/30',
-  red: 'bg-red-500/15 text-red-400 border border-red-500/30',
-  yellow: 'bg-yellow-500/15 text-yellow-400 border border-yellow-500/30',
-  cyan: 'bg-cyan-500/15 text-cyan-400 border border-cyan-500/30',
-  purple: 'bg-purple-500/15 text-purple-400 border border-purple-500/30',
+  default:  'bg-surface-warm text-ink-secondary border border-border',
+  brand:    'bg-brand-50 text-brand-600 border border-brand-200',
+  green:    'bg-sage/15 text-sage border border-sage/30',
+  red:      'bg-rose/15 text-rose border border-rose/30',
+  yellow:   'bg-mustard/15 text-mustard border border-mustard/30',
+  cyan:     'bg-dusty/15 text-dusty border border-dusty/30',
+  purple:   'bg-apricot/15 text-brand-500 border border-apricot/30',
+  orange:   'bg-apricot/20 text-brand-500 border border-apricot/40',
 };
 
 export const Badge = ({ children, variant = 'default', className = '' }) => (
-  <span className={`badge ${badgeVariants[variant]} ${className}`}>{children}</span>
+  <span className={`badge ${badgeVariants[variant] || badgeVariants.default} ${className}`}>
+    {children}
+  </span>
 );
 
 // ── Spinner ───────────────────────────────────────────────────────────────────
 export const Spinner = ({ size = 'md', className = '' }) => {
   const sizes = { sm: 'w-4 h-4', md: 'w-8 h-8', lg: 'w-12 h-12' };
-  return <Loader2 className={`${sizes[size]} animate-spin text-brand-400 ${className}`} />;
+  return <Loader2 className={`${sizes[size]} animate-spin text-brand-500 ${className}`} />;
 };
 
 // ── Skeleton ──────────────────────────────────────────────────────────────────
@@ -66,7 +72,7 @@ export const SkeletonCard = () => (
 // ── Card ──────────────────────────────────────────────────────────────────────
 export const Card = ({ children, className = '', glow = false, ...props }) => (
   <div
-    className={`glass p-6 transition-all duration-300 ${glow ? 'hover:shadow-glow-sm hover:border-brand-500/30' : ''} ${className}`}
+    className={`glass p-6 transition-all duration-200 ${glow ? 'hover:shadow-card-md hover:border-brand-200' : ''} ${className}`}
     {...props}
   >
     {children}
@@ -77,12 +83,12 @@ export const Card = ({ children, className = '', glow = false, ...props }) => (
 export const EmptyState = ({ icon: Icon, title, description, action }) => (
   <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
     {Icon && (
-      <div className="w-16 h-16 rounded-2xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center mb-4">
-        <Icon className="w-8 h-8 text-gray-500" />
+      <div className="w-16 h-16 rounded-2xl bg-surface-warm border border-border flex items-center justify-center mb-4">
+        <Icon className="w-8 h-8 text-ink-faint" />
       </div>
     )}
-    <h3 className="text-lg font-semibold text-gray-300 mb-1">{title}</h3>
-    {description && <p className="text-sm text-gray-500 mb-4 max-w-xs">{description}</p>}
+    <h3 className="text-lg font-semibold text-ink-primary mb-1">{title}</h3>
+    {description && <p className="text-sm text-ink-secondary mb-4 max-w-xs">{description}</p>}
     {action}
   </div>
 );
@@ -90,9 +96,9 @@ export const EmptyState = ({ icon: Icon, title, description, action }) => (
 // ── Online indicator ──────────────────────────────────────────────────────────
 export const OnlineDot = ({ online = false }) => (
   <span className="relative inline-flex">
-    <span className={`w-2.5 h-2.5 rounded-full ${online ? 'bg-green-400' : 'bg-gray-600'}`} />
+    <span className={`w-2.5 h-2.5 rounded-full ${online ? 'bg-sage' : 'bg-border-strong'}`} />
     {online && (
-      <span className="absolute inset-0 rounded-full bg-green-400 animate-ping opacity-75" />
+      <span className="absolute inset-0 rounded-full bg-sage animate-ping opacity-60" />
     )}
   </span>
 );
@@ -100,8 +106,8 @@ export const OnlineDot = ({ online = false }) => (
 // ── Divider ───────────────────────────────────────────────────────────────────
 export const Divider = ({ label, className = '' }) => (
   <div className={`relative flex items-center gap-3 ${className}`}>
-    <div className="flex-1 h-px bg-white/[0.08]" />
-    {label && <span className="text-xs text-gray-500 font-medium">{label}</span>}
-    <div className="flex-1 h-px bg-white/[0.08]" />
+    <div className="flex-1 h-px bg-border-light" />
+    {label && <span className="text-xs text-ink-muted font-medium">{label}</span>}
+    <div className="flex-1 h-px bg-border-light" />
   </div>
 );
