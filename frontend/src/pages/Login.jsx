@@ -7,14 +7,14 @@ import { Button, Input } from '../components/ui';
 
 const Login = () => {
   const { login } = useAuth();
-  const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || '/battle';
+  const navigate  = useNavigate();
+  const location  = useLocation();
+  const from      = location.state?.from?.pathname || '/battle';
 
-  const [form, setForm] = useState({ email: '', password: '' });
+  const [form, setForm]               = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState({});
+  const [loading, setLoading]         = useState(false);
+  const [errors, setErrors]           = useState({});
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -23,7 +23,7 @@ const Login = () => {
 
   const validate = () => {
     const errs = {};
-    if (!form.email) errs.email = 'Email is required';
+    if (!form.email)    errs.email    = 'Email is required';
     if (!form.password) errs.password = 'Password is required';
     return errs;
   };
@@ -48,27 +48,26 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 pt-16">
-      {/* Background */}
+    <div className="min-h-screen flex items-center justify-center px-4 pt-16 bg-surface-base">
+      {/* Subtle warm background wash */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/3 left-1/3 w-80 h-80 bg-brand-600/15 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/3 right-1/3 w-60 h-60 bg-purple-600/10 rounded-full blur-3xl" />
+        <div className="absolute top-0 left-0 right-0 h-72 bg-gradient-to-b from-brand-50/50 to-transparent" />
       </div>
 
       <div className="w-full max-w-md relative">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="w-12 h-12 rounded-xl bg-brand-600 flex items-center justify-center mx-auto mb-4 shadow-glow-md">
+          <div className="w-12 h-12 rounded-xl bg-brand-500 flex items-center justify-center mx-auto mb-4 shadow-card-md">
             <Swords className="w-6 h-6 text-white" />
           </div>
-          <h1 className="font-display font-bold text-2xl text-white">Welcome back</h1>
-          <p className="text-gray-400 text-sm mt-1">Sign in to your account to continue</p>
+          <h1 className="font-display font-bold text-2xl text-ink-primary">Welcome back</h1>
+          <p className="text-ink-secondary text-sm mt-1">Sign in to your account to continue</p>
         </div>
 
         <div className="glass p-8">
           <form onSubmit={handleSubmit} className="space-y-5">
             <div className="relative">
-              <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" style={{ top: 'calc(50% + 10px)' }} />
+              <Mail className="absolute left-3.5 w-4 h-4 text-ink-muted pointer-events-none" style={{ top: 'calc(50% + 10px)' }} />
               <Input
                 label="Email"
                 name="email"
@@ -96,7 +95,7 @@ const Login = () => {
               />
               <button
                 type="button"
-                className="absolute right-3 top-9 text-gray-500 hover:text-gray-300"
+                className="absolute right-3 top-9 text-ink-muted hover:text-ink-secondary"
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -108,9 +107,9 @@ const Login = () => {
             </Button>
           </form>
 
-          <p className="text-center text-sm text-gray-500 mt-6">
+          <p className="text-center text-sm text-ink-muted mt-6">
             Don't have an account?{' '}
-            <Link to="/register" className="text-brand-400 hover:text-brand-300 font-medium">
+            <Link to="/register" className="text-brand-500 hover:text-brand-600 font-medium">
               Create one
             </Link>
           </p>
