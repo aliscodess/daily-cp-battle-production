@@ -20,7 +20,7 @@ const BattleRoom = () => {
   const [match, setMatch] = useState(location.state?.matchData || null);
   const [p1Solved, setP1Solved] = useState(false);
   const [p2Solved, setP2Solved] = useState(false);
-  const [result, setResult] = useState(null); // { winner, player1, player2 }
+  const [result, setResult] = useState(null);
   const [checking, setChecking] = useState(false);
   const [reconnecting, setReconnecting] = useState(!match);
 
@@ -50,7 +50,6 @@ const BattleRoom = () => {
     },
     match_ended: (data) => {
       setResult(data);
-      // Update local user rating
       if (user) {
         const myResult = data[myPlayer];
         if (myResult) updateUser({ rating: myResult.newRating });
@@ -69,7 +68,6 @@ const BattleRoom = () => {
     },
   });
 
-  // Try to rejoin if page was refreshed
   useEffect(() => {
     if (!match && user) {
       setReconnecting(true);
@@ -85,10 +83,10 @@ const BattleRoom = () => {
 
   if (reconnecting) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-surface-base">
         <div className="text-center">
           <Spinner size="lg" className="mx-auto mb-4" />
-          <p className="text-gray-400">Reconnecting to match...</p>
+          <p className="text-ink-secondary">Reconnecting to match...</p>
         </div>
       </div>
     );
@@ -96,11 +94,11 @@ const BattleRoom = () => {
 
   if (!match) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-surface-base">
         <Card className="max-w-sm text-center">
-          <XCircle className="w-10 h-10 text-red-400 mx-auto mb-3" />
-          <h3 className="font-bold text-white mb-2">Match Not Found</h3>
-          <p className="text-gray-400 text-sm mb-4">This match doesn't exist or has ended.</p>
+          <XCircle className="w-10 h-10 text-rose mx-auto mb-3" />
+          <h3 className="font-bold text-ink-primary mb-2">Match Not Found</h3>
+          <p className="text-ink-secondary text-sm mb-4">This match doesn't exist or has ended.</p>
           <Button onClick={() => navigate('/battle')}>Back to Battle</Button>
         </Card>
       </div>
@@ -115,23 +113,21 @@ const BattleRoom = () => {
     const theirResult = result[myPlayer === 'player1' ? 'player2' : 'player1'];
 
     return (
-      <div className="min-h-screen flex items-center justify-center px-4 pt-16">
+      <div className="min-h-screen flex items-center justify-center px-4 pt-16 bg-surface-base">
         <div className="max-w-lg w-full text-center">
           <div className="glass p-10 relative overflow-hidden">
-            <div className="absolute inset-0 pointer-events-none">
-              {iWon && (
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-64 bg-yellow-500/10 rounded-full blur-3xl" />
-              )}
-            </div>
+            {iWon && (
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-mustard/40 via-brand-400 to-mustard/40 rounded-t-2xl" />
+            )}
 
             <div className="text-6xl mb-4">
               {isDraw ? '🤝' : iWon ? '🏆' : '💪'}
             </div>
 
-            <h1 className="font-display font-bold text-4xl text-white mb-2">
+            <h1 className="font-display font-bold text-4xl text-ink-primary mb-2">
               {isDraw ? "It's a Draw!" : iWon ? 'You Won!' : 'You Lost'}
             </h1>
-            <p className="text-gray-400 mb-8">
+            <p className="text-ink-secondary mb-8">
               {isDraw
                 ? "Both players ran out of time"
                 : iWon
@@ -145,11 +141,11 @@ const BattleRoom = () => {
                 { label: 'You', data: myResult },
                 { label: 'Opponent', data: theirResult },
               ].map(({ label, data }) => (
-                <div key={label} className="glass-sm p-4">
-                  <p className="text-xs text-gray-500 mb-1">{label}</p>
-                  <p className="font-bold text-white">{data?.username}</p>
-                  <p className="font-mono text-sm text-white mt-1">{data?.newRating}</p>
-                  <p className={`text-xs font-mono ${data?.ratingChange >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+                <div key={label} className="bg-surface-warm border border-border rounded-xl p-4">
+                  <p className="text-xs text-ink-muted mb-1">{label}</p>
+                  <p className="font-bold text-ink-primary">{data?.username}</p>
+                  <p className="font-mono text-sm text-ink-primary mt-1">{data?.newRating}</p>
+                  <p className={`text-xs font-mono ${data?.ratingChange >= 0 ? 'text-sage' : 'text-rose'}`}>
                     {data?.ratingChange >= 0 ? '+' : ''}{data?.ratingChange}
                   </p>
                 </div>
@@ -162,7 +158,7 @@ const BattleRoom = () => {
                 href={result.problem.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 text-sm text-brand-400 hover:text-brand-300 mb-8"
+                className="flex items-center justify-center gap-2 text-sm text-brand-500 hover:text-brand-600 mb-8"
               >
                 <ExternalLink className="w-4 h-4" />
                 View Problem: {result.problem.title}
@@ -187,22 +183,30 @@ const BattleRoom = () => {
 
   // ── Active match ─────────────────────────────────────────────────────────────
   return (
-    <div className="min-h-screen pt-20 pb-16 px-4">
+    <div className="min-h-screen pt-20 pb-16 px-4 bg-surface-base">
       <div className="max-w-4xl mx-auto">
         {/* Timer bar */}
-        <div className={`glass mb-6 p-4 flex items-center justify-between ${isCritical ? 'border-red-500/50' : isLow ? 'border-yellow-500/30' : ''}`}>
+        <div className={`glass mb-6 p-4 flex items-center justify-between ${
+          isCritical
+            ? 'border-rose/60 bg-rose/5'
+            : isLow
+            ? 'border-mustard/40'
+            : ''
+        }`}>
           <div className="flex items-center gap-6">
             <div>
-              <p className="text-xs text-gray-500 mb-0.5">Your handle</p>
-              <p className="text-sm font-medium text-white font-mono">{myData?.codeforcesHandle || '—'}</p>
+              <p className="text-xs text-ink-muted mb-0.5">Your handle</p>
+              <p className="text-sm font-medium text-ink-primary font-mono">{myData?.codeforcesHandle || '—'}</p>
             </div>
             <div>
-              <p className="text-xs text-gray-500 mb-0.5">Opponent</p>
-              <p className="text-sm font-medium text-white">{opponent?.username}</p>
+              <p className="text-xs text-ink-muted mb-0.5">Opponent</p>
+              <p className="text-sm font-medium text-ink-primary">{opponent?.username}</p>
             </div>
           </div>
 
-          <div className={`flex items-center gap-2 font-mono text-3xl font-bold ${isCritical ? 'timer-critical' : isLow ? 'text-yellow-400' : 'text-white'}`}>
+          <div className={`flex items-center gap-2 font-mono text-3xl font-bold ${
+            isCritical ? 'timer-critical' : isLow ? 'text-mustard' : 'text-ink-primary'
+          }`}>
             <Clock className={`w-5 h-5 ${isLow ? 'animate-pulse' : ''}`} />
             {formatted}
           </div>
@@ -210,17 +214,17 @@ const BattleRoom = () => {
           <div className="flex items-center gap-3 text-sm">
             <div className="flex items-center gap-1.5">
               {p1Solved
-                ? <Check className="w-4 h-4 text-green-400" />
-                : <div className="w-4 h-4 rounded-full border-2 border-gray-600 animate-pulse" />}
-              <span className={`text-xs ${p1Solved ? 'text-green-400' : 'text-gray-500'}`}>
+                ? <Check className="w-4 h-4 text-sage" />
+                : <div className="w-4 h-4 rounded-full border-2 border-border-strong animate-pulse" />}
+              <span className={`text-xs ${p1Solved ? 'text-sage' : 'text-ink-muted'}`}>
                 {match.player1?.username}
               </span>
             </div>
             <div className="flex items-center gap-1.5">
               {p2Solved
-                ? <Check className="w-4 h-4 text-green-400" />
-                : <div className="w-4 h-4 rounded-full border-2 border-gray-600 animate-pulse" />}
-              <span className={`text-xs ${p2Solved ? 'text-green-400' : 'text-gray-500'}`}>
+                ? <Check className="w-4 h-4 text-sage" />
+                : <div className="w-4 h-4 rounded-full border-2 border-border-strong animate-pulse" />}
+              <span className={`text-xs ${p2Solved ? 'text-sage' : 'text-ink-muted'}`}>
                 {match.player2?.username}
               </span>
             </div>
@@ -239,7 +243,7 @@ const BattleRoom = () => {
                   <Badge variant="yellow">⭐ {match.problem.rating}</Badge>
                 )}
               </div>
-              <h2 className="font-display font-bold text-xl text-white">{match.problem?.title}</h2>
+              <h2 className="font-display font-bold text-xl text-ink-primary">{match.problem?.title}</h2>
             </div>
             <a
               href={match.problem?.url}
@@ -256,22 +260,22 @@ const BattleRoom = () => {
           {match.problem?.tags?.length > 0 && (
             <div className="flex flex-wrap gap-2 mb-4">
               {match.problem.tags.map((tag) => (
-                <span key={tag} className="px-2 py-0.5 rounded-md bg-white/[0.04] text-xs text-gray-400 border border-white/[0.06]">
+                <span key={tag} className="px-2 py-0.5 rounded-md bg-surface-warm text-xs text-ink-secondary border border-border">
                   {tag}
                 </span>
               ))}
             </div>
           )}
 
-          <div className="pt-4 border-t border-white/[0.06]">
-            <div className="flex items-start gap-3 p-4 rounded-xl bg-blue-500/5 border border-blue-500/20">
-              <RefreshCw className="w-4 h-4 text-blue-400 flex-shrink-0 mt-0.5" />
+          <div className="pt-4 border-t border-border-light">
+            <div className="flex items-start gap-3 p-4 rounded-xl bg-dusty/8 border border-dusty/20">
+              <RefreshCw className="w-4 h-4 text-dusty flex-shrink-0 mt-0.5" />
               <div>
-                <p className="text-sm text-blue-300 font-medium mb-1">How submissions work</p>
-                <p className="text-xs text-gray-400 leading-relaxed">
+                <p className="text-sm text-dusty font-medium mb-1">How submissions work</p>
+                <p className="text-xs text-ink-secondary leading-relaxed">
                   Submit your solution on <strong>Codeforces</strong>, then click the button below.
                   We'll automatically check your CF submissions for an{' '}
-                  <span className="text-green-400 font-medium">Accepted</span> verdict.
+                  <span className="text-sage font-medium">Accepted</span> verdict.
                   Polling runs every 15 seconds automatically.
                 </p>
               </div>
@@ -300,7 +304,7 @@ const BattleRoom = () => {
                 </>
               )}
             </Button>
-            <p className="text-xs text-gray-600 mt-2">
+            <p className="text-xs text-ink-muted mt-2">
               We auto-poll every 15 seconds. Click to trigger an immediate check.
             </p>
           </div>
@@ -308,7 +312,7 @@ const BattleRoom = () => {
 
         {(p1Solved || p2Solved) && (
           <div className="glass p-4 text-center">
-            <div className="flex items-center justify-center gap-2 text-green-400">
+            <div className="flex items-center justify-center gap-2 text-sage">
               <CheckCircle2 className="w-5 h-5" />
               <span className="font-medium">
                 {p1Solved && p2Solved
@@ -318,7 +322,7 @@ const BattleRoom = () => {
                   : `${match.player2?.username} solved it!`}
               </span>
             </div>
-            <p className="text-xs text-gray-500 mt-1">Waiting for match to finalize...</p>
+            <p className="text-xs text-ink-muted mt-1">Waiting for match to finalize...</p>
           </div>
         )}
       </div>
