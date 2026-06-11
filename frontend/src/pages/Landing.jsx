@@ -10,46 +10,45 @@ const FEATURES = [
     icon: Swords,
     title: 'Real-Time Battles',
     desc: 'Challenge opponents live in 1v1 coding duels powered by Socket.IO.',
-    color: 'text-brand-400',
-    bg: 'bg-brand-600/10',
+    color: 'text-brand-500',
+    bg: 'bg-brand-50 border border-brand-100',
   },
   {
     icon: Code2,
     title: 'Codeforces Problems',
     desc: 'Fresh random problems from Codeforces API every match.',
-    color: 'text-cyan-400',
-    bg: 'bg-cyan-500/10',
+    color: 'text-dusty',
+    bg: 'bg-dusty/10 border border-dusty/20',
   },
   {
     icon: Zap,
     title: 'Elo Rating System',
     desc: 'Track progress with a competitive Elo rating system.',
-    color: 'text-yellow-400',
-    bg: 'bg-yellow-500/10',
+    color: 'text-mustard',
+    bg: 'bg-mustard/10 border border-mustard/20',
   },
   {
     icon: Trophy,
     title: 'Global Leaderboard',
     desc: 'Compete for top spots on the global rankings.',
-    color: 'text-purple-400',
-    bg: 'bg-purple-500/10',
+    color: 'text-apricot',
+    bg: 'bg-apricot/10 border border-apricot/20',
   },
   {
     icon: Globe,
     title: 'Invite System',
     desc: 'Challenge a specific friend with shareable invite codes.',
-    color: 'text-green-400',
-    bg: 'bg-green-500/10',
+    color: 'text-sage',
+    bg: 'bg-sage/10 border border-sage/20',
   },
   {
     icon: Timer,
     title: '30-Minute Sprints',
     desc: 'Intense timed matches that keep you on your toes.',
-    color: 'text-orange-400',
-    bg: 'bg-orange-500/10',
+    color: 'text-brand-400',
+    bg: 'bg-brand-50 border border-brand-100',
   },
 ];
-
 
 const Landing = () => {
   const { user } = useAuth();
@@ -76,29 +75,27 @@ const Landing = () => {
   }, []);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-surface-base">
       {/* ── Hero ────────────────────────────────────────────────────────── */}
       <section className="relative pt-32 pb-24 px-4 overflow-hidden">
-        {/* Background orbs */}
+        {/* Subtle warm wash */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-600/20 rounded-full blur-3xl animate-pulse-slow" />
-          <div className="absolute top-1/3 right-1/4 w-64 h-64 bg-purple-600/15 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '1s' }} />
-          <div className="absolute bottom-0 left-1/2 w-72 h-72 bg-cyan-600/10 rounded-full blur-3xl" />
+          <div className="absolute top-0 left-0 right-0 h-80 bg-gradient-to-b from-brand-50/60 to-transparent" />
         </div>
 
         <div className="max-w-4xl mx-auto text-center relative">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-600/10 border border-brand-500/20 text-brand-300 text-sm font-medium mb-8 animate-fade-in">
-            <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface-card border border-border text-ink-secondary text-sm font-medium mb-8 animate-fade-in shadow-card">
+            <span className="w-1.5 h-1.5 rounded-full bg-sage animate-pulse" />
             Live competitive coding battles
           </div>
 
-          <h1 className="font-display font-bold text-5xl sm:text-6xl md:text-7xl text-white leading-tight mb-6 animate-slide-up">
+          <h1 className="font-display font-bold text-5xl sm:text-6xl md:text-7xl text-ink-primary leading-tight mb-6 animate-slide-up">
             Code Faster.
             <br />
-            <span className="gradient-text">Battle Harder.</span>
+            <span className="text-brand-500">Battle Harder.</span>
           </h1>
 
-          <p className="text-lg sm:text-xl text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed animate-fade-in" style={{ animationDelay: '0.1s' }}>
+          <p className="text-lg sm:text-xl text-ink-secondary mb-10 max-w-2xl mx-auto leading-relaxed animate-fade-in" style={{ animationDelay: '0.1s' }}>
             1v1 real-time competitive programming battles using Codeforces problems.
             Sharpen your skills, climb the leaderboard, and prove you're the fastest coder.
           </p>
@@ -131,10 +128,10 @@ const Landing = () => {
       <section className="py-20 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="font-display font-bold text-3xl sm:text-4xl text-white mb-4">
+            <h2 className="font-display font-bold text-3xl sm:text-4xl text-ink-primary mb-4">
               Everything you need to compete
             </h2>
-            <p className="text-gray-400 max-w-lg mx-auto">
+            <p className="text-ink-secondary max-w-lg mx-auto">
               A full-featured battle platform built for competitive programmers.
             </p>
           </div>
@@ -144,8 +141,8 @@ const Landing = () => {
                 <div className={`w-10 h-10 rounded-xl ${bg} flex items-center justify-center mb-4`}>
                   <Icon className={`w-5 h-5 ${color}`} />
                 </div>
-                <h3 className="font-display font-semibold text-white mb-2">{title}</h3>
-                <p className="text-sm text-gray-400 leading-relaxed">{desc}</p>
+                <h3 className="font-display font-semibold text-ink-primary mb-2">{title}</h3>
+                <p className="text-sm text-ink-secondary leading-relaxed">{desc}</p>
               </Card>
             ))}
           </div>
@@ -157,10 +154,10 @@ const Landing = () => {
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
-              <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-              <h2 className="font-display font-bold text-2xl text-white">Live Battles</h2>
+              <span className="w-2 h-2 rounded-full bg-sage animate-pulse" />
+              <h2 className="font-display font-bold text-2xl text-ink-primary">Live Battles</h2>
             </div>
-            <Link to="/battle" className="text-sm text-brand-400 hover:text-brand-300 flex items-center gap-1">
+            <Link to="/battle" className="text-sm text-brand-500 hover:text-brand-600 flex items-center gap-1">
               Join battle <ChevronRight className="w-4 h-4" />
             </Link>
           </div>
@@ -168,18 +165,18 @@ const Landing = () => {
           {loadingLive ? (
             <div className="flex justify-center py-12"><Spinner /></div>
           ) : liveMatches.length > 0 ? (
-            <div className="space-y-3">
+            <div className="space-y-2">
               {liveMatches.map((m, i) => (
                 <div key={i} className="glass p-4 flex items-center justify-between gap-4">
                   <div className="flex items-center gap-3">
-                    <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse flex-shrink-0" />
-                    <span className="text-sm font-medium text-white">
-                      {m.player1?.username} <span className="text-gray-500">vs</span> {m.player2?.username}
+                    <span className="w-2 h-2 rounded-full bg-sage animate-pulse flex-shrink-0" />
+                    <span className="text-sm font-medium text-ink-primary">
+                      {m.player1?.username} <span className="text-ink-muted">vs</span> {m.player2?.username}
                     </span>
                   </div>
                   <div className="flex items-center gap-2 flex-shrink-0">
                     {m.problem?.rating && <Badge variant="brand">{m.problem.rating}</Badge>}
-                    <span className="text-xs text-gray-500 hidden sm:block truncate max-w-[160px]">
+                    <span className="text-xs text-ink-muted hidden sm:block truncate max-w-[160px]">
                       {m.problem?.title}
                     </span>
                   </div>
@@ -187,7 +184,7 @@ const Landing = () => {
               ))}
             </div>
           ) : (
-            <div className="glass p-8 text-center text-gray-500">
+            <div className="glass p-8 text-center text-ink-muted">
               <Swords className="w-8 h-8 mx-auto mb-3 opacity-30" />
               <p className="text-sm">No live battles right now. Be the first!</p>
             </div>
@@ -199,12 +196,12 @@ const Landing = () => {
       {!user && (
         <section className="py-20 px-4">
           <div className="max-w-2xl mx-auto text-center">
-            <div className="glass p-12 relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-brand-600/10 to-purple-600/10 pointer-events-none" />
-              <h2 className="font-display font-bold text-3xl text-white mb-4 relative">
+            <div className="glass p-12 relative overflow-hidden bg-surface-card">
+              <div className="absolute inset-0 bg-gradient-to-br from-brand-50/80 to-surface-warm/50 pointer-events-none rounded-2xl" />
+              <h2 className="font-display font-bold text-3xl text-ink-primary mb-4 relative">
                 Ready to battle?
               </h2>
-              <p className="text-gray-400 mb-8 relative">
+              <p className="text-ink-secondary mb-8 relative">
                 Join thousands of competitive programmers. Create your account and start your first battle today.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center relative">
