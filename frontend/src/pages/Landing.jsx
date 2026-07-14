@@ -83,12 +83,6 @@ const Landing = () => {
           <div className="absolute top-0 left-0 right-0 h-80 bg-gradient-to-b from-brand-50/60 to-transparent" />
         </div>
 
-        <div className="max-w-4xl mx-auto text-center relative">
-      
-
-           
-          </div>
-
           <h1 className="font-display font-bold text-5xl sm:text-6xl md:text-7xl text-ink-primary leading-tight mb-6 animate-slide-up">
             Code Faster.
             <br />
