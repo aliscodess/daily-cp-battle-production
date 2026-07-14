@@ -84,7 +84,7 @@ const Landing = () => {
         </div>
 
         <div className="max-w-4xl mx-auto text-center relative">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface-card border border-border text-ink-secondary text-sm font-medium mb-8 animate-fade-in shadow-card">
+      
 
            
           </div>
